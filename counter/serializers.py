@@ -1,17 +1,22 @@
-from django.contrib.auth import authenticate
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from django.contrib import admin
+from django.contrib.admin import register
 
-from counter.models import Profile, Message
+from counter.models import Message, Profile
+
+# Register your models here.
+admin.site.site_header = 'Admin Site'
 
 
-class ProfileSerializer(ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = '__all__'
+
+from rest_framework.serializers import ModelSerializer
 
 
 class MessageSerializer(ModelSerializer):
     class Meta:
         model = Message
-        fields = ['content', 'subject', 'creation_time', 'sender', 'read', 'receiver']
+        fields = '__all__'
 
+class ProfileSerializer(ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
