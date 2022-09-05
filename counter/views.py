@@ -47,7 +47,6 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 
 def getMessages(user, read):
-    # user_messages = list(Message.objects.filter(sender=user).filter(read=read))
     user_messages = list(Message.objects.filter(sender=user))
     for index, msg in enumerate(user_messages):
         user_messages[index] = model_to_dict(msg)
