@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 import requests
@@ -30,7 +29,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
     filter_fields = ('user',)
     filter_backends = (DjangoFilterBackend,)
 
@@ -41,6 +40,9 @@ class MessageViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         super().perform_create(serializer)
+        print('-' * 100)
+        print('line43')
+        print('-' * 100)
         message: Message = serializer.instance
         serializer.save(user=message.sender, content=message.content, subject=message.subject,
                         creation_time=message.creation_time, receiver=message.receiver)
@@ -103,9 +105,25 @@ def read_message(request, message_id):
             if not message.read:
                 message.read = True
                 message.save()
-                return JsonResponse({'Message': model_to_dict(message)})
+                return JsonResponse(model_to_dict(message))
             return HttpResponseNotFound('message already read ' + message.content)
 
+        except requests.ConnectionError:
+            return HttpResponseNotFound('<h1>502 Bad Gateway server error response code</h1>')
+        except requests.exceptions.Timeout:
+            return HttpResponseNotFound('<h1>Timeout error</h1>')
+        except  Exception as e:
+            return HttpResponseNotFound('Data not found')
+    return HttpResponseNotFound('Data not found')
+
+
+@api_view(['GET'])
+def delete_message(request, message_id):
+    if request.method == 'GET':
+        try:
+            message = Message.objects.get(id=message_id)
+            message.delete()
+            return HttpResponseNotFound('Message Deleted')
         except requests.ConnectionError:
             return HttpResponseNotFound('<h1>502 Bad Gateway server error response code</h1>')
         except requests.exceptions.Timeout:

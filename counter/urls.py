@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/message-unread-per-user-id', views.message_unread_per_user,
          name='message-unread-per-user-id'),
     path('api/read-message/<str:message_id>', views.read_message,
-         name='read-message')
+         name='read-message'),
+    path('api/delete-message/<str:message_id>', views.delete_message,
+         name='delete-message')
 
 ]

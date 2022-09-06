@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,10 +22,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '0vti^&v2+8v_=y-don9p_yxa+(%rk^z34s4$m-^8&!u8d2s)3-'
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-#ALLOWED_HOSTS = ['messagesapp2.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['cool_counters.herokuapp.com', 'localhost', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -124,3 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# activate heroku
+django_heroku.settings(locals())
