@@ -1,5 +1,5 @@
 asgiref==3.5.2
-backports.zoneinfo==0.2.1;python_version<"3.9"
+backports.zoneinfo==0.2.1;python_version<"3.8.12"
 certifi==2019.3.9
 chardet==3.0.4
 defusedxml==0.7.1
@@ -36,6 +36,7 @@ requests-oauthlib==1.2.0
 sqlparse==0.2.4
 stripe==2.27.0
 tablib==3.2.1
+tzdata==2022.2
 urllib3==1.24.2
 whitenoise==6.2.0
 xlrd==2.0.1
