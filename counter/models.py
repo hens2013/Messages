@@ -19,13 +19,15 @@ from django.db.models import DateTimeField
 class Profile(models.Model):
     first_name = models.CharField(max_length=120, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
-    user_name = models.CharField(max_length=120, blank=True, null=True)
+    user_name = models.CharField(unique=True, max_length=120, blank=True, null=True)
     password = models.CharField(max_length=120, blank=True, null=True)
     phone_number = models.CharField(max_length=120, blank=True, null=True)
 
-
+    def save(self, *args, **kwargs):
+        fields = kwargs.pop('update_fields', [])
+        if fields != ['last_login']:
+            return super(Profile, self).save(*args, **kwargs)
 class Message(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     content = models.TextField(help_text='Message text', null=False, blank=True)
     subject = models.TextField(help_text='Message text', null=False, blank=True)
     creation_time = DateTimeField(default=datetime.now)

@@ -23,8 +23,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = '0vti^&v2+8v_=y-don9p_yxa+(%rk^z34s4$m-^8&!u8d2s)3-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = True
 DEBUG = False
-ALLOWED_HOSTS = ['cool_counters.herokuapp.com', 'localhost', '127.0.0.1']
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'counter',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
+    'import_export',
 ]
 
 REST_FRAMEWORK = {
